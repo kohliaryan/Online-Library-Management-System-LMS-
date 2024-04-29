@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<div class="cointainer" style="display: flex;">
+    <div class="col-4" style="padding: 20px;">
+        <br><br><br>
+
+        <form action="/addSection" method="POST">
+            <h2>Add New Section</h2>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Title </label>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    name="sectionName">
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Description</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    name="description">
+            </div>
+
+            <button type="submit" class="btn btn-danger">Submit</button>
+        </form>
+    </div>
+
+    <div></div>
+
+    <div class="col-8">
+        <br><br><br>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Section Id</th>
+                    <th scope="col">Section Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Date Created</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in sections %}
+
+                <tr>
+                    <td> {{c.sectionId}} </td>
+                    <td> {{c.sectionName}} </td>
+                    <td> {{c.description}} </td>
+                    <td> {{c.dateCreated}} </td>
+                    <td>
+                        <a href="/updatesection/{{c.sectionId}}" class="btn btn-danger btn-sm">update</a>
+                        <a href="/delete/{{c.sectionId}}" class="btn btn-danger btn-sm">delete</a>
+                        <a href="/addBooks/{{c.sectionId}}" class="btn btn-danger btn-sm">books</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock body %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<div style="padding: 10px;">
+    <div class="d-grid gap-2">
+        <a href="/displayrequest" class="btn btn-success btn-sm"> Refresh </a>
+    </div>
+</div>
+
+<h2>Requests: </h2>
+<br>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Request Id</th>
+            <th scope="col">User Id</th>
+            <th scope="col">Book Id</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for c in requests %}
+
+        <tr>
+            <td> {{c.requestId}} </td>
+            <td> {{c.userId}} </td>
+            <td>{{c.bookId}}</td>
+            <td>
+                <a href="/acceptrequest/{{c.requestId}}" class="btn btn-danger btn-sm"> Accept </a>
+                <a href="/rejectrequest/{{c.requestId}}" class="btn btn-danger btn-sm"> Reject </a>
+            </td>
+        </tr>
+
+
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock body %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block body %}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Issued Id</th>
+            <th scope="col">User Id</th>
+            <th scope="col">Book Id</th>
+            <th scope="col">Issue Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entry in issuedBooks %}
+
+        <tr>
+            <td> {{entry.issued_id}} </td>
+            <td> {{ entry.userId }} </td>
+            <td> {{ entry.bookId }} </td>
+            <td> {{ entry.issueDate }} </td>
+
+            <td>
+                <a href="/revokeaccess/{{entry.issued_id}}" class="btn btn-danger">Revoke Access</a>
+            </td>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+
+    {% endblock body %}

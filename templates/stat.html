@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<h2>Here are stats for Aryan Liberary</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Book Id</th>
+            <th scope="col">User Id</th>
+            <th scope="col">Book Name</th>
+            <th scope="col">Issue Date</th>
+            <th scope="col">Return Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for s in stats %}
+        <tr>
+            <td>{{ s.historyId }}</td>
+            <td>{{ s.bookId }}</td>
+            <td>{{ s.userId }}</td>
+            <td><b>{{ s.bookName }}</b></td>
+            <td>{{ s.issuedDate }}</td>
+            <td>{{ s.returnDate }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+{% endblock body %}

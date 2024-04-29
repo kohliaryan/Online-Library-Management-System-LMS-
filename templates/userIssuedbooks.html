@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<h1>{{ user.username.title() }}'s Profile</h1>
+<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#rate_book">
+    Give Review to any book!
+</button>
+<br><br>
+<h4>Current Books</h4>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Book Id</th>
+            <th scope="col">Issued Date</th>
+            <th scope="col">Book Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entry in entries %}
+        <tr>
+            <td>{{ entry.bookId }}</td>
+            <td>{{ entry.issueDate }}</td>
+            <td>
+                {% for book in books %}
+                {% if book.bookId == entry.bookId %}
+                <b>{{ book.bookName }}</b> 
+                 by {{ book.author }}
+                {% endif %}
+                {% endfor %}
+            </td>
+            <td>
+                <a class="btn btn-danger btn-sm">Read</a>
+                <a href="/userreturnbook/{{entry.issued_id}}" class="btn btn-danger btn-sm">Return</a>
+            </td>
+        </tr>
+
+
+        <div class="modal fade" id="rate_book" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Review</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/review" method="POST">
+
+                            <div>
+                                <div class="mb-3">
+                                    <label for="exampleInputPassword1" class="form-label">What is book Id?</label>
+                                    <input type="integer" class="form-control" id="exampleInputPassword1" name="bookId">
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Write your review here:</label>
+                                <input type="paragraph" class="form-control" id="exampleInputPassword1" name="review">
+                            </div>
+                            <button type="submit" class="btn btn-danger">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h4>History</h4>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Book Id</th>
+        <th scope="col">Book Name</th>
+        <th scope="col">Issue Date</th>
+        <th scope="col">Return Date</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for e in history %}
+      <tr>
+        <td> {{e.bookId}} </td>
+        <td> {{e.bookName}} </td>
+        <td> {{e.issuedDate}} </td>
+        <td> {{e.returnDate}} </td>
+      </tr>
+        {% endfor %}
+
+    </tbody>
+  </table>
+
+
+{% endblock body %}

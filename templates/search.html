@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+</head>
+
+<body>
+    <h1>Search Results</h1>
+
+    <h2>Books Matching "{{ s }}" in Book Name:</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Book Name</th>
+                <th scope="col">Author</th>
+                <th scope="col">Actions</th> 
+            </tr>
+        </thead>
+        <tbody>
+            {% for b in result %}
+            <tr>
+                <td>{{ b.bookName }}</td>
+                <td>{{ b.author }}</td>
+                <td>
+                    {% if b.bookId in requested_book_ids or requests | length > 4 %}
+                    <button type="button" class="btn btn-danger" disabled>Request</button>
+                    {% else %}
+                    <a href="/request/{{ b.bookId }}" class="btn btn-danger">Request</a>
+                    {% endif %}
+                    <a href="/viewreviews/{{ b.bookId }}" class="btn btn-danger">View reviews</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Books Matching "{{ s }}" in Author Name:</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Book Name</th>
+                <th scope="col">Author</th>
+                <th scope="col">Actions</th> 
+            </tr>
+        </thead>
+        <tbody>
+            {% for b in result2 %}
+            <tr>
+                <td>{{ b.bookName }}</td>
+                <td>{{ b.author }}</td>
+
+                <td>
+                    {% if b.bookId in requested_book_ids or requests | length > 4 %}
+                    <button type="button" class="btn btn-danger" disabled>Request</button>
+                    {% else %}
+                    <a href="/request/{{ b.bookId }}" class="btn btn-danger">Request</a>
+                    {% endif %}
+                    <a href="/viewreviews/{{ b.bookId }}" class="btn btn-danger">View reviews</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Books Matching "{{ s }}" in Section Name:</h2>
+
+    <ul>
+        {% for section in result3 %}
+            <li> <h5>{{ section.sectionName }}:</h5> ({{ section.description }})</li>
+        {% endfor %}
+    </ul>
+
+</body>
+
+
+</html>
+
+{% endblock body %}

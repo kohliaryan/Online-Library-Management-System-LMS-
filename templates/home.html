@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<div style="padding: 20px;">
+    <div class="d-grid gap-2">
+        <a href="/viewIssuedBook" class="btn btn-danger btn-sm">View Profile</a>
+    </div>
+    <br>
+</div>
+
+<div class="container my-4" style="text-align: center;">
+    <h1><strong>My Book App</strong></h1>
+    <br>
+    <h5>Which section are you interested in?</h5>
+    <div class="dropdown">
+        <button class="btn btn-danger dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{ section.sectionName }}
+        </button>
+        <ul class="dropdown-menu">
+            {% for s in sections %}
+            <li><a class="dropdown-item" href="/section/{{ s.sectionId }}">{{ s.sectionName }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+</div>
+<h4>Request Left: {{ 5 - requests | length }} </h4>
+
+<h3> {{section.sectionName}}: {{section.description}} </h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Book Id</th>
+            <th scope="col">Book Name</th>
+            <th scope="col">Author</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for b in books %}
+        <tr>
+            <td>{{b.bookId}}</td>
+            <td>{{b.bookName}}</td>
+            <td>{{b.author}}</td>
+
+            <td>
+                {% if b.bookId in requested_book_ids or requests|length > 4 or b.bookId in issuedBooks %}
+                <button type="button" class="btn btn-danger" disabled>Request</button>
+                {% else %}
+                <a href="/request/{{ b.bookId }}" class="btn btn-danger">Request</a>
+                {% endif %}
+                <a href="/viewreviews/{{ b.bookId }}" class="btn btn-danger">View reviews</a>
+            </td>
+        </tr>
+
+        {% endfor %}
+    </tbody>
+</table>
+
+</div>
+{% endblock body %}
